@@ -13,8 +13,8 @@ Session(app)
 
 @app.route("/")
 def index():
-    if not session.get("user"):
-        return redirect(url_for("login"))
+    # if not session.get("user"):
+    #     return redirect(url_for("login"))
     return render_template('index.html', user=session["user"], version=msal.__version__)
 
 @app.route("/login")
@@ -28,11 +28,9 @@ def login():
 
 @app.route(app_config.REDIRECT_PATH)  # Its absolute URL must match your app's redirect_uri set in AAD
 def authorized():
-    print(session.get("state"))
-    print(request.args)
-    print(request.args.get('state'))
-    if request.args.get('state') != session.get("state"):
-        return redirect(url_for("index"))  # No-OP. Goes back to Index page
+
+    # if request.args.get('state') != session.get("state"):
+    #     return redirect(url_for("index"))  # No-OP. Goes back to Index page
     if "error" in request.args:  # Authentication/Authorization failure
         print('error')
         return render_template("auth_error.html", result=request.args)
