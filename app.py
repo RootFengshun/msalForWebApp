@@ -14,7 +14,7 @@ Session(app)
 @app.route("/")
 def index():
     if not session.get("user"):
-        return redirect(url_for("login"))
+        return redirect(url_for("login", _external=True, _scheme='https'))
     return render_template('index.html', user=session["user"], version=msal.__version__)
 
 @app.route("/login")
